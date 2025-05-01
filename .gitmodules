@@ -1,0 +1,6 @@
+[submodule "godot-cpp"]
+	path = godot-cpp
+	url = https://github.com/godotengine/godot-cpp.git
+[submodule "odin-sdk"]
+	path = odin-sdk
+	url = https://github.com/4Players/odin-sdk.git

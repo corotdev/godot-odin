@@ -1,0 +1,13 @@
+bin/
+cmake-build-debug/
+.env/
+*.os
+*.o
+*.so
+*.a
+*.exe
+*.dll
+*.dSYM
+.DS_Store
+.idea/
+*.dblite
