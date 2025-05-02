@@ -1,0 +1,19 @@
+[configuration]
+entry_symbol = "odin_extension_library_init"
+compatibility_minimum = "4.4"
+
+[dependencies]
+macos.debug = { "res://addons/odin_extension/bin/libodin.dylib": "" }
+macos.release = { "res://addons/odin_extension/bin/libodin.dylib": "" }
+windows.debug.x86_64 = { "res://addons/odin_extension/bin/odin.dll": "" }
+windows.release.x86_64 = { "res://addons/odin_extension/bin/odin.dll": "" }
+linux.debug.x86_64 = { "res://addons/odin_extension/bin/libodin.so": "" }
+linux.release.x86_64 = { "res://addons/odin_extension/bin/libodin.so": "" }
+
+[libraries]
+macos.debug = "res://addons/odin_extension/bin/libodin.macos.template_debug.universal.dylib"
+macos.release = "res://addons/odin_extension/bin/libodin.macos.template_release.universal.dylib"
+windows.debug.x86_64 = "res://addons/odin_extension/bin/libodin.windows.template_debug.x86_64.dll"
+windows.release.x86_64 = "res://addons/odin_extension/bin/libodin.windows.template_release.x86_64.dll"
+linux.debug.x86_64 = "res://addons/odin_extension/bin/libodin.linux.template_debug.x86_64.so"
+linux.release.x86_64 = "res://addons/odin_extension/bin/libodin.linux.template_release.x86_64.so"

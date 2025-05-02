@@ -11,3 +11,8 @@ cmake-build-debug/
 .DS_Store
 .idea/
 *.dblite
+
+# demo ignore
+.godot/
+demo/addons/odin_extension/
+*.translation

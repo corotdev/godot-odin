@@ -30,7 +30,7 @@ private:
     NodePath spatial_target_path;
     Node3D* spatial_target = nullptr;
 
-    OdinRoomHandle* room_handle;
+    OdinRoomHandle room_handle;
     OdinMediaStreamHandle* local_audio_stream;
 
     String access_key;

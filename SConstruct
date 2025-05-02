@@ -21,15 +21,22 @@ if env["platform"] == "windows":
     env.Append(LIBS=["odin"])
 elif env["platform"] == "macos":
     env.Append(CPPDEFINES=["PLATFORM_MACOS"])
+    env.Append(LINKFLAGS=[
+        "-Wl,-rpath,'@loader_path'",
+        "-Wl,-install_name,'@rpath/libodin.macos.template_debug.universal.dylib'",
+    ])
+
     if arch == "universal":
-        env.Append(LIBPATH=[
-            "odin-sdk/bin/macos-x86_64",
-            "odin-sdk/bin/macos-aarch64"
-        ])
+        # First, create universal binary for the SDK library
+        env.Command("bin/libodin.dylib", ["odin-sdk/bin/macos-x86_64/libodin.dylib", "odin-sdk/bin/macos-aarch64/libodin.dylib"],
+                   "lipo -create $SOURCES -output $TARGET")
+        
+        # Add the library path and name
+        env.Append(LIBPATH=["bin"])
+        env.Append(LIBS=["odin"])
     else:
         env.Append(LIBPATH=["odin-sdk/bin/macos-" + arch])
-    env.Append(LIBS=["odin"])
-    env.Append(LINKFLAGS=["-Wl,-rpath,'@loader_path'"])
+        env.Append(LIBS=["odin"])
 elif env["platform"] == "linux":
     env.Append(CPPDEFINES=["PLATFORM_LINUX"])
     env.Append(LIBPATH=["odin-sdk/bin/linux-" + arch])
@@ -42,10 +49,13 @@ else:
 if env["platform"] == "windows":
     env.Command("bin/odin.dll", "odin_sdk/bin/windows-" + arch + "/odin.dll", Copy("$TARGET", "$SOURCE"))
 elif env["platform"] == "macos":
-    env.Command("bin/libodin.dylib", "odin_sdk/bin/macos-" + arch + "/libodin.dylib", Copy("$TARGET", "$SOURCE"))
+    if arch == "universal":
+        # Universal binary is already created above
+        pass
+    else:
+        env.Command("bin/libodin.dylib", "odin-sdk/bin/macos-" + arch + "/libodin.dylib", Copy("$TARGET", "$SOURCE"))
 else:
     env.Command("bin/libodin.so", "odin_sdk/bin/linux-" + arch + "/libodin.so", Copy("$TARGET", "$SOURCE"))
-
 
 sources = Glob("src/odin_extension/*.cpp")
 

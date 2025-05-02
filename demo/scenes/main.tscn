@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0wxvcdrkiigu"]
+
+[ext_resource type="Script" uid="uid://b7gks6y4hq0ob" path="res://scripts/main.gd" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://c008bivsad50d" path="res://scenes/player.tscn" id="2_sugp2"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_o5qli")
+
+[node name="OdinManager" type="OdinManager" parent="."]
+
+[node name="UI" type="Node" parent="."]
+
+[node name="Panel" type="Panel" parent="UI"]
+offset_right = 178.0
+offset_bottom = 160.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Panel"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 13.0
+offset_right = 166.0
+offset_bottom = 116.0
+
+[node name="JoinButton" type="Button" parent="UI/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Join"
+
+[node name="LeaveButton" type="Button" parent="UI/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Leave"
+
+[node name="MicToggle" type="Button" parent="UI/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Mute/Unmute
+"
+
+[node name="StatusLabel" type="Label" parent="UI/Panel/VBoxContainer"]
+layout_mode = 2
+text = "OFFLINE"
+horizontal_alignment = 1
+
+[node name="Player" parent="." instance=ExtResource("2_sugp2")]
+
+[connection signal="connection_state_changed" from="OdinManager" to="." method="_on_odin_manager_connection_state_changed"]
+[connection signal="peer_joined" from="OdinManager" to="." method="_on_odin_manager_peer_joined"]
+[connection signal="peer_left" from="OdinManager" to="." method="_on_odin_manager_peer_left"]
+[connection signal="room_joined" from="OdinManager" to="." method="_on_odin_manager_room_joined"]
+[connection signal="pressed" from="UI/Panel/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="pressed" from="UI/Panel/VBoxContainer/LeaveButton" to="." method="_on_leave_button_pressed"]
+[connection signal="pressed" from="UI/Panel/VBoxContainer/MicToggle" to="Player" method="_on_mic_toggle_pressed"]
