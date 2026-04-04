@@ -17,10 +17,11 @@ This project is built using SCons. The project uses the Godot C++ bindings to cr
 
 ### Prerequisites
 
-- Godot 4.4+ (https://godotengine.org/download)
+- Godot 4.6+ (https://godotengine.org/download)
 - SCons (https://scons.org/)
 - Python 3.12+ (https://www.python.org/downloads/)
 - CMake (https://cmake.org/download/)
+- git lfs (https://git-lfs.com/)
 - prob a bunch of stuff that already comes bundled with macOS
 
 ### Build Steps
@@ -39,6 +40,7 @@ This project is built using SCons. The project uses the Godot C++ bindings to cr
 
 ## TODO
 
-- [ ] add windows/linux support
+- [x] add linux support
+- [ ] add windows support
 - [ ] install script that automatically adds the addon to project with prebuilt binaries
 - [ ] better documentation
