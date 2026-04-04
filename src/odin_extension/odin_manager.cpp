@@ -5,7 +5,7 @@
 #include <godot_cpp/classes/audio_stream_player.hpp>
 #include <godot_cpp/classes/audio_stream_generator.hpp>
 #include <godot_cpp/classes/time.hpp>
-
+#include <algorithm>
 
 namespace godot {
     String get_error_message(const OdinReturnCode error_code) {
@@ -41,17 +41,17 @@ namespace godot {
             memdelete_arr(capture_buffer);
             capture_buffer = nullptr;
         }
-        
+
         if (local_audio_stream) {
             odin_media_stream_destroy(*local_audio_stream);
             local_audio_stream = nullptr;
         }
-        
+
         if (room_handle != 0) {
             odin_room_destroy(room_handle);
             room_handle = 0;
         }
-        
+
         shutdown();
     }
 
@@ -155,7 +155,7 @@ namespace godot {
             case OdinEvent_MediaAdded: {
                 const uint64_t peer_id = event->media_added.peer_id;
                 const OdinMediaStreamHandle media = event->media_added.media_handle;
-  
+
                 manager->add_media_stream(peer_id, media);
                 uint16_t out_media_id;
                 const OdinReturnCode result = odin_media_stream_media_id(media, &out_media_id);
@@ -361,7 +361,7 @@ namespace godot {
 
     String OdinManager::generate_room_token(const String& room_id, const String &user_id) const {
         UtilityFunctions::print("[ODIN] [INFO] Generating room token for room_id: ", room_id, " user_id: ", user_id);
-        
+
         if (access_key.is_empty()) {
             UtilityFunctions::print("[ODIN] [ERROR] No access key provided");
             return "";
@@ -428,7 +428,7 @@ namespace godot {
         if (active) {
             if (!local_audio_stream) {
                 UtilityFunctions::print("[ODIN] [INFO] Creating local audio stream");
-                local_audio_stream = new OdinMediaStreamHandle(odin_audio_stream_create({.channel_count = 1, .sample_rate = 48000 }));
+                local_audio_stream = new OdinMediaStreamHandle(odin_audio_stream_create({.sample_rate = 48000, .channel_count = 1 }));
 
                 if (!local_audio_stream) {
                     UtilityFunctions::print("[ODIN] [ERROR] Failed to create local media stream");
@@ -916,4 +916,3 @@ namespace godot {
 
 
 }
-
