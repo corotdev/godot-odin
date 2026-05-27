@@ -2,7 +2,7 @@
 
 ## Note
 
-This project is a work in progress and is not yet ready for production use.
+This is a community project, and there may be issues. If you encounter any issues, please feel free to submit a PR and we will happily merge anything that improves it. If you don't know how to modify Godot plugins, use at your own risk.
 
 ## Description
 
